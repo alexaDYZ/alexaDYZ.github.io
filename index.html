@@ -56,7 +56,7 @@
     }
 
     .pronunciation::after {
-        content: "click to pronounce";
+        content: attr(data-tooltip);
         position: absolute;
         left: 50%;
         bottom: calc(100% + 0.45rem);
@@ -87,8 +87,8 @@
     <header>
         <h1 class="header-title">
             Alexandra
-            <button class="pronunciation" type="button" data-audio="audio/yizhuo.m4a" aria-label="Yizhuo">Yizhuo</button>
-            <button class="pronunciation" type="button" data-audio="audio/dong.m4a" aria-label="Dong">Dong</button>
+            <button class="pronunciation" type="button" data-audio="audio/yizhuo.m4a" data-tooltip="click to pronounce yī zhuó" aria-label="Yizhuo">Yizhuo</button>
+            <button class="pronunciation" type="button" data-audio="audio/dong.m4a" data-tooltip="click to pronounce dǒng" aria-label="Dong">Dong</button>
         </h1>
         <div style="display: flex; flex-direction: column; align-items: center;">
             <img src="photos/portrait.png" alt="My Profile Picture" class="profile-picture" style="width: 350px; height: auto; max-width: 100%;" title="Photo courtesy of Yifan Shi">
@@ -174,7 +174,7 @@
             </p>
             <p>
 
-            Music is the other half of that equation. I've been playing the <em>Zheng</em> since 2005 and started learning the <em>Qin</em> in 2023 from Professor Li Chi. Along the way, I've had the opportunity to perform at venues such as Schoenberg Hall and the Chancellor's Residence at UCLA (a few recordings can be found here:
+            Music is the other half of that equation. I've been playing the <em>Zheng</em>(筝) since 2005 and started learning the <em>Qin</em>(琴) in 2023 from Professor Li Chi. Along the way, I've had the opportunity to perform at venues such as Schoenberg Hall and the Chancellor's Residence at UCLA (a few recordings can be found here:
 
                 <a href="https://www.youtube.com/watch?v=--iB0Who1_k&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef" target="_blank">[1]</a>,
 

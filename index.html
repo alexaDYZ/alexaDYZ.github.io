@@ -28,11 +28,68 @@
         background: #ffe9b5;
         color: #000;
     }
+
+    .pronunciation {
+        position: relative;
+        display: inline;
+        padding: 0;
+        border: 0;
+        border-bottom: 1px dotted transparent;
+        background: none;
+        color: inherit;
+        font: inherit;
+        line-height: inherit;
+        cursor: pointer;
+        transition: border-color 160ms ease, color 160ms ease;
+    }
+
+    .pronunciation:hover,
+    .pronunciation:focus-visible,
+    .pronunciation.is-playing {
+        border-bottom-color: currentColor;
+        color: #8631d6;
+    }
+
+    .pronunciation:focus-visible {
+        outline: 2px solid #8631d6;
+        outline-offset: 3px;
+    }
+
+    .pronunciation::after {
+        content: "click to pronounce";
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 0.45rem);
+        z-index: 1;
+        width: max-content;
+        padding: 0.25rem 0.45rem;
+        border-radius: 3px;
+        background: #333;
+        color: #fff;
+        font-family: sans-serif;
+        font-size: 0.7rem;
+        font-weight: normal;
+        line-height: 1.2;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, 0.2rem);
+        transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .pronunciation:hover::after,
+    .pronunciation:focus-visible::after {
+        opacity: 0.92;
+        transform: translate(-50%, 0);
+    }
     </style>
 </head>
 <body class="libertinus" style="background-color: #e4e8e9;">
     <header>
-        <h1 class="header-title">Alexandra Yizhuo Dong</h1>
+        <h1 class="header-title">
+            Alexandra
+            <button class="pronunciation" type="button" data-audio="audio/yizhuo.m4a" aria-label="Yizhuo">Yizhuo</button>
+            <button class="pronunciation" type="button" data-audio="audio/dong.m4a" aria-label="Dong">Dong</button>
+        </h1>
         <div style="display: flex; flex-direction: column; align-items: center;">
             <img src="photos/portrait.png" alt="My Profile Picture" class="profile-picture" style="width: 350px; height: auto; max-width: 100%;" title="Photo courtesy of Yifan Shi">
             <div style="text-align: center; margin-bottom: 20px;">
@@ -113,20 +170,57 @@
         <section id="outside-academia">
             <h2>Outside  Academia</h2>
             <p>
-                I love spending time outdoors and enjoy surfing 🏄🏻, windsurfing, and biking. Since moving to LA, I've taken up golf.
+                When I'm away from research, I enjoy spending my time on two long-standing interests: sports and music. On the sports side, I love surfing 🏄🏻, windsurfing, and playing tennis. Since moving to Los Angeles, I've also taken up golf.
+            </p>
+            <p>
 
-                <p>
-                    I am passionate about traditional Chinese music and have been playing the <em>zheng</em> (since 2005) and the <em>qin</em> (since 2023, see 
-                    <a href="https://www.youtube.com/watch?v=--iB0Who1_k&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef" target="_blank">[1]</a>, 
-                    <a href="https://www.youtube.com/watch?v=4wHhWGBiCbw&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef&index=10" target="_blank">[2]</a>, and 
-                    <a href="https://www.youtube.com/watch?v=G3n3DxPPchw&list=PLK5AkSzLYHTZHTMRk4IwMEK_Xz6_kCnpT&index=11" target="_blank">[3]</a>). I served as producer of 
-                    <a href="https://www.youtube.com/playlist?list=PLK5AkSzLYHTZHTMRk4IwMEK_Xz6_kCnpT" target="_blank">Fall 2024 <em>Music of China </em>concert</a> for <a href="https://uclachinesemusic.com/home" target="_blank">UCLA Chinese Music Ensemble</a>.
-                    </p>
+            Music is the other half of that equation. I've been playing the <em>Zheng</em> since 2005 and started learning the <em>Qin</em> in 2023 from Professor Li Chi. Along the way, I've had the opportunity to perform at venues such as Schoenberg Hall and the Chancellor's Residence at UCLA (a few recordings can be found here:
+
+                <a href="https://www.youtube.com/watch?v=--iB0Who1_k&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef" target="_blank">[1]</a>,
+
+                <a href="https://www.youtube.com/watch?v=4wHhWGBiCbw&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef&index=10" target="_blank">[2]</a>, and
+
+                <a href="https://www.youtube.com/watch?v=G3n3DxPPchw&list=PLK5AkSzLYHTZHTMRk4IwMEK_Xz6_kCnpT&index=11" target="_blank">[3]</a>).
+
+                I believe music brings people together, just like sports. Hence, I have helped organize and produce the <em>Music of China</em> concert series for the
+                <a href="https://uclachinesemusic.com/home" target="_blank">UCLA Chinese Music Ensemble</a>,
+                including the
+                <a href="https://www.youtube.com/playlist?list=PLK5AkSzLYHTZHTMRk4IwMEK_Xz6_kCnpT" target="_blank">Fall 2024</a>
+                and Spring 2026 concerts.
+            </p>
+
+
         </section>
-        <!-- <a href="#top" class="top-link">[Top]</a> -->
     </main>
 
-    <!-- Add your footer or other content here -->
+
+    <script>
+        const pronunciationButtons = document.querySelectorAll(".pronunciation");
+        let currentAudio;
+        let currentButton;
+
+        pronunciationButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                    currentButton.classList.remove("is-playing");
+                }
+
+                currentAudio = new Audio(button.dataset.audio);
+                currentButton = button;
+                button.classList.add("is-playing");
+
+                currentAudio.addEventListener("ended", () => {
+                    button.classList.remove("is-playing");
+                });
+
+                currentAudio.play().catch(() => {
+                    button.classList.remove("is-playing");
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

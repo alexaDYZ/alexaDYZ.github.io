@@ -4,29 +4,442 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexandra Dong's website</title>
+    <link rel="icon" type="image/png" href="assets/ucla-logo.png">
+    <link rel="apple-touch-icon" href="assets/ucla-logo.png">
     <link rel="stylesheet" href="https://latex.vercel.app/style.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://latex.vercel.app/prism/prism.css">
     <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
     <style>
+    :root {
+        --page: #f3f7f6;
+        --ink: #202124;
+        --muted: #626762;
+        --rule: #cbdad7;
+        --accent: #1d6f68;
+        --accent-dark: #124f4a;
+        --accent-soft: #e5f0ec;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
-        background-color: #dbe5fa;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background:
+            linear-gradient(180deg, rgba(229, 240, 236, 0.92), rgba(243, 247, 246, 0.95) 42rem),
+            var(--page);
+        color: var(--ink);
+        font-size: clamp(1rem, 0.94rem + 0.25vw, 1.12rem);
+        line-height: 1.68;
+    }
+
+    body.libertinus {
+        max-width: none;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image:
+            linear-gradient(rgba(32, 33, 36, 0.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(32, 33, 36, 0.025) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent 75%);
+    }
+
+    header,
+    main {
+        width: min(100% - 2rem, 1020px);
+        margin: 0 auto;
+    }
+
+    header {
+        padding: clamp(1.2rem, 3vw, 2.4rem) 0 1.3rem;
+    }
+
+    main {
+        padding-bottom: 4rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+        color: var(--ink);
+        letter-spacing: 0;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: clamp(2.35rem, 5.8vw, 4.55rem);
+        line-height: 0.98;
+    }
+
+    h2 {
+        margin: 0 0 1rem;
+        font-size: clamp(1.45rem, 2.1vw, 1.9rem);
+        line-height: 1.15;
+    }
+
+    h3 {
+        margin: 1.2rem 0 0.55rem;
+        color: var(--accent-dark);
+        font-size: 1.05rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    p {
+        margin: 0 0 1rem;
     }
 
     a {
-        color: #0070c9;
-        /* color: #000; */
-        text-decoration: none;
+        color: var(--accent-dark);
+        text-decoration: underline;
+        text-decoration-color: rgba(29, 111, 104, 0.25);
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.16em;
+        transition: color 160ms ease, text-decoration-color 160ms ease;
     }
 
     a:hover {
-        color: #8631d6;
-        text-decoration: underline;
+        color: #7b4c12;
+        text-decoration-color: currentColor;
     }
 
     ::selection {
         background: #ffe9b5;
         color: #000;
+    }
+
+    .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(230px, 340px);
+        column-gap: clamp(1.6rem, 4vw, 3.8rem);
+        row-gap: 1.2rem;
+        align-items: center;
+        padding: clamp(1.3rem, 3vw, 2.2rem);
+        border-block: 1px solid rgba(29, 111, 104, 0.14);
+    }
+
+    .hero-copy {
+        display: flex;
+        flex-direction: column;
+        grid-column: 1;
+        grid-row: 2;
+        min-width: 0;
+    }
+
+    .anderson-logo {
+        grid-column: 1;
+        grid-row: 1;
+        display: block;
+        width: min(100%, 240px);
+        height: auto;
+        align-self: end;
+    }
+
+    .candidate-title {
+        order: 1;
+        margin-bottom: 0.75rem;
+        color: var(--accent-dark);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 750;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+    }
+
+    .header-title {
+        order: 2;
+    }
+
+    .tagline {
+        order: 4;
+        max-width: 34rem;
+        margin: 1rem 0 1.35rem;
+        color: var(--muted);
+        font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+        line-height: 1.55;
+    }
+
+    .contact-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        align-items: center;
+        justify-content: flex-start;
+        order: 5;
+        width: min(100%, 34rem);
+        margin-top: 1rem;
+    }
+
+    .contact-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.35rem;
+        padding: 0.42rem 0.82rem;
+        border: 1px solid rgba(29, 111, 104, 0.2);
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(0.74rem, 2.7vw, 0.86rem);
+        line-height: 1.2;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .contact-pill:hover,
+    .contact-pill:focus-visible {
+        border-color: rgba(29, 111, 104, 0.42);
+        background: #d9ece7;
+        color: var(--accent-dark);
+        text-decoration: none;
+    }
+
+    .portrait-wrap {
+        position: relative;
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        justify-self: end;
+        width: min(100%, 340px);
+        border-radius: 8px;
+    }
+
+    .portrait-wrap:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+    }
+
+    .profile-picture {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1.17;
+        object-fit: cover;
+        border: 1px solid rgba(32, 33, 36, 0.12);
+        border-radius: 8px;
+        box-shadow: 0 16px 36px rgba(32, 33, 36, 0.14);
+    }
+
+    .photo-credit {
+        position: absolute;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        max-width: calc(100% - 1.5rem);
+        padding: 0.32rem 0.55rem;
+        border-radius: 999px;
+        background: rgba(18, 79, 74, 0.9);
+        color: #fff;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.75rem;
+        line-height: 1.2;
+        opacity: 0;
+        pointer-events: none;
+        text-align: center;
+        transform: translateY(0.35rem);
+        transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .portrait-wrap:hover .photo-credit,
+    .portrait-wrap:focus .photo-credit,
+    .portrait-wrap:focus-within .photo-credit {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    section {
+        padding: clamp(2.2rem, 5vw, 3.4rem) 0;
+        border-top: 1px solid var(--rule);
+    }
+
+    #about {
+        border-top: 0;
+        padding-top: clamp(2rem, 4vw, 3rem);
+    }
+
+    section > p,
+    section > ol,
+    section > ul {
+        max-width: 760px;
+    }
+
+    ol {
+        padding-left: 1.4rem;
+    }
+
+    li {
+        padding-left: 0.15rem;
+    }
+
+    .paper-title {
+        margin: 0 0 0.35rem;
+        color: var(--ink);
+        font-size: clamp(1.14rem, 1.7vw, 1.34rem);
+        line-height: 1.25;
+        text-transform: none;
+        letter-spacing: 0;
+    }
+
+    .paper-meta {
+        margin: 0 0 0.35rem;
+        color: var(--muted);
+    }
+
+    .paper {
+        max-width: 820px;
+        margin-top: 1.4rem;
+        padding-left: 1rem;
+        border-left: 4px solid var(--accent);
+    }
+
+    .paper + .paper {
+        margin-top: 2.15rem;
+    }
+
+    .paper-status,
+    .paper-keywords {
+        margin: 0 0 0.35rem;
+    }
+
+    .paper-keywords {
+        color: #3d413d;
+    }
+
+    .paper-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin: 0.85rem 0 0.95rem;
+    }
+
+    .paper-button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.15rem;
+        padding: 0.34rem 0.78rem;
+        border: 1px solid rgba(29, 111, 104, 0.32);
+        border-radius: 999px;
+        background: rgba(229, 240, 236, 0.7);
+        color: var(--accent-dark);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        line-height: 1;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .paper-button:hover,
+    .paper-button:focus-visible {
+        border-color: var(--accent-dark);
+        background: var(--accent-dark);
+        color: #fff;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+
+    .research-notes {
+        margin-top: 0.55rem;
+        padding-left: 1.1rem;
+        color: #333631;
+        font-size: 0.95rem;
+        line-height: 1.55;
+    }
+
+    .research-notes li + li {
+        margin-top: 0.25rem;
+    }
+
+    .section-list {
+        margin-top: 0.35rem;
+        padding-left: 1.1rem;
+        color: #333631;
+    }
+
+    .section-note {
+        color: var(--muted);
+        font-style: italic;
+    }
+
+    .abstract-dialog {
+        width: min(92vw, 760px);
+        max-height: min(78vh, 760px);
+        padding: 0;
+        border: 1px solid rgba(126, 215, 202, 0.35);
+        border-radius: 8px;
+        background:
+            linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(238, 249, 246, 0.98)),
+            #fff;
+        box-shadow: 0 30px 90px rgba(0, 20, 18, 0.34);
+        color: var(--ink);
+    }
+
+    .abstract-dialog::backdrop {
+        background: rgba(5, 18, 20, 0.66);
+        backdrop-filter: blur(6px);
+    }
+
+    .abstract-panel {
+        position: relative;
+        padding: clamp(1.25rem, 3vw, 2rem);
+    }
+
+    .abstract-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 3px;
+        background: linear-gradient(90deg, #178a7e, #58c2b7, transparent);
+    }
+
+    .abstract-panel h3 {
+        margin-top: 0;
+        padding-right: 2.4rem;
+        color: var(--ink);
+        font-size: clamp(1.2rem, 2vw, 1.55rem);
+        text-transform: none;
+        letter-spacing: 0;
+    }
+
+    .abstract-panel p {
+        color: #2f3735;
+        font-size: 0.98rem;
+        line-height: 1.68;
+    }
+
+    .abstract-close {
+        position: absolute;
+        top: 0.95rem;
+        right: 0.95rem;
+        display: inline-grid;
+        place-items: center;
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid rgba(29, 111, 104, 0.18);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--accent-dark);
+        font: 1.35rem/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        cursor: pointer;
+    }
+
+    .abstract-close:hover,
+    .abstract-close:focus-visible {
+        background: var(--accent-dark);
+        color: #fff;
     }
 
     .pronunciation {
@@ -47,11 +460,11 @@
     .pronunciation:focus-visible,
     .pronunciation.is-playing {
         border-bottom-color: currentColor;
-        color: #8631d6;
+        color: var(--accent-dark);
     }
 
     .pronunciation:focus-visible {
-        outline: 2px solid #8631d6;
+        outline: 2px solid var(--accent);
         outline-offset: 3px;
     }
 
@@ -81,20 +494,194 @@
         opacity: 0.92;
         transform: translate(-50%, 0);
     }
+
+    .name-audio {
+        display: inline-grid;
+        place-items: center;
+        width: clamp(1.05rem, 1.6vw, 1.35rem);
+        height: clamp(1.05rem, 1.6vw, 1.35rem);
+        margin-left: 0.18em;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #73807d;
+        cursor: pointer;
+        line-height: 1;
+        transform: translateY(0.12em);
+        transition: color 160ms ease, transform 160ms ease;
+        vertical-align: baseline;
+    }
+
+    .name-audio svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+        stroke-width: 2;
+    }
+
+    .name-audio:hover,
+    .name-audio:focus-visible,
+    .name-audio.is-playing {
+        color: var(--accent-dark);
+        transform: translateY(0.12em) scale(1.06);
+    }
+
+    .name-audio:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+        border-radius: 50%;
+    }
+
+    .site-footer {
+        width: min(100% - 2rem, 1020px);
+        margin: 0 auto;
+        padding: 1.5rem 0 2.5rem;
+        border-top: 1px solid var(--rule);
+        color: var(--muted);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.78rem;
+        text-align: center;
+    }
+
+    .site-footer p {
+        margin: 0.15rem 0;
+    }
+
+    @media (max-width: 760px) {
+        header,
+        main {
+            width: min(100% - 1.1rem, 1020px);
+        }
+
+        header {
+            padding-top: 0.75rem;
+        }
+
+        .hero {
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+            padding: 1rem;
+        }
+
+        .anderson-logo {
+            grid-column: 1;
+            grid-row: 1;
+            justify-self: center;
+            width: min(56vw, 190px);
+        }
+
+        .portrait-wrap {
+            grid-column: 1;
+            grid-row: 2;
+            justify-self: center;
+            width: min(72vw, 260px);
+        }
+
+        .hero-copy {
+            grid-column: 1;
+            grid-row: 3;
+            text-align: center;
+        }
+
+        .header-title {
+            order: 1;
+        }
+
+        .candidate-title {
+            order: 2;
+            margin: 0.9rem 0 0.4rem;
+        }
+
+        .tagline {
+            order: 5;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .contact-row {
+            order: 3;
+            justify-content: center;
+            margin-top: 0.45rem;
+        }
+
+        .name-audio {
+            width: 1rem;
+            height: 1rem;
+            margin-left: 0.14em;
+        }
+
+        .contact-pill {
+            max-width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
+
+        section {
+            padding: 2rem 0;
+        }
+
+        ol {
+            padding-left: 1.1rem;
+        }
+
+        .research-notes {
+            padding-left: 0.95rem;
+        }
+
+        .paper {
+            padding-left: 0.85rem;
+        }
+
+        .paper-actions {
+            gap: 0.45rem;
+        }
+    }
+
+    @media (max-width: 430px) {
+        body {
+            line-height: 1.62;
+        }
+
+        h1 {
+            font-size: 2.18rem;
+        }
+
+        .hero {
+            padding: 0.85rem;
+        }
+
+        .contact-row {
+            gap: 0.45rem;
+        }
+    }
     </style>
 </head>
-<body class="libertinus" style="background-color: #e4e8e9;">
+<body class="libertinus">
     <header>
-        <h1 class="header-title">
-            Alexandra
-            <button class="pronunciation" type="button" data-audio="audio/yizhuo.m4a" data-tooltip="click to pronounce yī zhuó" aria-label="Yizhuo">Yizhuo</button>
-            <button class="pronunciation" type="button" data-audio="audio/dong.m4a" data-tooltip="click to pronounce dǒng" aria-label="Dong">Dong</button>
-        </h1>
-        <div style="display: flex; flex-direction: column; align-items: center;">
-            <img src="photos/portrait.png" alt="My Profile Picture" class="profile-picture" style="width: 350px; height: auto; max-width: 100%;" title="Photo courtesy of Yifan Shi">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <a href="https://www.linkedin.com/in/yizhuo-dong/" target="_blank">LinkedIn</a> |
-                yizhuo.dong.phd@anderson.ucla.edu
+        <div class="hero">
+            <img src="assets/ucla-anderson-logo.png" alt="UCLA Anderson School of Management" class="anderson-logo">
+            <div class="hero-copy">
+                <div class="candidate-title">UCLA Anderson PhD Candidate</div>
+                <h1 class="header-title">
+                    Alexandra
+                    <button class="pronunciation" type="button" data-audio="audio/yizhuo.m4a" data-tooltip="click to pronounce yī zhuó" aria-label="Yizhuo">Yizhuo</button>
+                    <button class="pronunciation" type="button" data-audio="audio/dong.m4a" data-tooltip="click to pronounce dǒng" aria-label="Dong">Dong</button><button class="name-audio" type="button" data-audio="audio/full_name_pronounciation.m4a" aria-label="Play full name pronunciation" title="Play pronunciation">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="none" stroke-linejoin="round"/>
+                            <path d="M16.5 8.5a5 5 0 0 1 0 7" fill="none" stroke-linecap="round"/>
+                            <path d="M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </h1>
+                <p class="tagline">Researching sustainable operations and innovative marketplaces.</p>
+                <div class="contact-row" aria-label="Contact links">
+                    <span class="contact-pill">yizhuo.dong.phd@anderson.ucla.edu</span>
+                </div>
+            </div>
+            <div class="portrait-wrap" tabindex="0">
+                <img src="photos/portrait.png" alt="Alexandra Dong" class="profile-picture">
+                <div class="photo-credit">Photo courtesy of Yifan Shi</div>
             </div>
         </div>
     </header>
@@ -104,25 +691,25 @@
 
         <!-- About Section -->
         <section id="about">
-            
-                <h2>About Me</h2>
-                <p>
-                    Hi! I am a PhD candidate in the Decisions, Operations and Technology Management Area (<a href="https://www.anderson.ucla.edu/faculty-and-research/decisions-operations-and-technology-management">DOTM</a>) at UCLA Anderson School of Management, where I am fortunate to be advised by Professor <a href="https://www.auyonsiddiq.com/">Auyon Siddiq</a>.
-                </p>
+            <h2>About Me</h2>
+            <p>
+                Hi! I am a third-year PhD student in the Decisions, Operations and Technology Management (<a href="https://www.anderson.ucla.edu/faculty-and-research/decisions-operations-and-technology-management">DOTM</a>) Area at UCLA Anderson School of Management, where I am very fortunate to be advised by Professor <a href="https://www.auyonsiddiq.com/">Auyon Siddiq</a>.
+            </p>
 
-                <p>
-                   I am passionate about studying innovative marketplaces and sustainable operations. My research integrates empirical analysis with analytical tools from optimization, game theory, and machine learning to study how market design influences operational decisions and outcomes. Recently, I have been working on a project that applies structural estimation and market design to reduce food waste.
-                </p>
+            <p>
+                I am passionate about studying innovative marketplaces and sustainable operations. My research integrates empirical analysis with analytical tools from optimization, game theory, and machine learning to study how market design influences operational decisions and outcomes. Recently, I have been working on a project that applies structural estimation and market design to reduce food waste.
+            </p>
 
-                <p>
-                    Before joining UCLA, I earned my B.S. in Applied Mathematics from the National University of Singapore (NUS), mentored by Professor <a href="https://yssoh.github.io/" target="_blank">Yong-Sheng Soh</a>. Also, I worked as a research assistant at the NUS Business School guided by Professor <a href="https://iora.nus.edu.sg/people-p/chong-juin-kuan/" target="_blank">Chong Juin-Kuan</a>.
-                </p>
-                          
+            <p>
+                Before joining UCLA, I earned my B.S. in Applied Mathematics from the National University of Singapore (NUS), mentored by Professor <a href="https://yssoh.github.io/" target="_blank" rel="noopener">Yong-Sheng Soh</a>. 
+                
+                <!-- Also, I worked as a research assistant at the NUS Business School guided by Professor <a href="https://iora.nus.edu.sg/people-p/chong-juin-kuan/" target="_blank" rel="noopener">Chong Juin-Kuan</a>. -->
+            </p>
         </section>
 
-        <!-- <section id="news">
-        <!-- informs co-chair and presentation -->
-        <!-- <h2>✨ News</h2>
+        <!--
+        <section id="news">
+        <h2>News</h2>
         <p>
             I will be co-chairing and presenting at the following session at the 2025 INFORMS Annual Meeting in Atlanta, GA:
         </p>
@@ -132,43 +719,67 @@
         </section> -->
         
 
-        <section id="research">
-        <h2><strong>Research</strong></h2>
-            <h3>Working Papers</h3>
-        <ol>
-            <li>
-                 <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5648812" target="_blank"><strong>Empirical Market Design in Surplus Food Marketplaces</strong></a><br>
-                with A. Siddiq
-                and J. Zhang<br>
-                Major Revision, <strong>Operations Research</strong>
-            <!-- <p>Talks:</p> -->
-            <ul>
-                <li><strong>Winner</strong>, Best Paper Presentation Award, Early-Career Sustainable Operations Workshop | Mar 2026, Dallas, TX</li>
-                <li><strong>Second Place</strong>, POMS College of Sustainable Operations Student Paper Competition | May 2026, Reno, NV</li>
-                <li>Accepted to MSOM Sustainable Operations SIG Day | 2026</li>
-                <li>Accepted to RMP Section Conference | July 2025, New York, NY</li>
-                <li>Accepted to MSOM Conference | June 2025, London, UK</li>
-                <li>Accepted to Marketplace Innovation Workshop (MIW) | May 2025, Virtual</li>
-                <!-- <li>Annual POMS Conference | May 2025, Atlanta, GA</li> -->
-                <li>Media coverage: <a href="https://anderson-review.ucla.edu/how-to-price-soon-to-expire-food-to-attract-the-most-merchants-and-consumers/" target="_blank">UCLA Anderson Review</a>
-                </ul>
-            </li>
+        <section id="working-papers">
+            <h2>Working Papers</h2>
 
-            <li>
-                <strong>Fairness Behind the Veil: Eliciting Social Preferences from Large Language Models</strong></a><br> 
-                with M. Ma, N. Trigo, and N. Zhang.<br>
-                <!-- (<em>Draft in preparation</em>) -->
-            <ul>
-                <li>Accepted to EC'25 Workshop on Information Economics x Large Language Models | July 2025, Stanford, CA</li>
-            </ul>
-            </li>
-        </ol>
+            <article class="paper">
+                <h3 class="paper-title">Empirical Market Design in Surplus Food Marketplaces</h3>
+                <p class="paper-meta">with Auyon Siddiq and Jingwei Zhang</p>
+                <p class="paper-status">Major Revision, <strong>Operations Research</strong></p>
+                <p class="paper-keywords"><strong>Keywords:</strong> Food waste, entry games, structural estimation, integer optimization, market design, Too Good to Go.</p>
+                <div class="paper-actions">
+                    <button class="paper-button" type="button" data-dialog-target="abstract-surplus">Abstract</button>
+                    <a class="paper-button" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5648812" target="_blank" rel="noopener">Paper</a>
+                </div>
+                <ul class="research-notes">
+                    <li><strong>Winner</strong>, Best Paper Presentation Award, Early-Career Sustainable Operations Workshop | Mar 2026, Dallas, TX</li>
+                    <li><strong>Second Place</strong>, POMS College of Sustainable Operations Student Paper Competition | May 2026, Reno, NV</li>
+                    <li>Accepted to MSOM Sustainable Operations SIG Day | 2026</li>
+                    <li>Accepted to RMP Section Conference | July 2025, New York, NY</li>
+                    <li>Accepted to MSOM Conference | June 2025, London, UK</li>
+                    <li>Accepted to Marketplace Innovation Workshop (MIW) | May 2025, Virtual</li>
+                    <!-- <li>Annual POMS Conference | May 2025, Atlanta, GA</li> -->
+                    <li>Media coverage: <a href="https://anderson-review.ucla.edu/how-to-price-soon-to-expire-food-to-attract-the-most-merchants-and-consumers/" target="_blank" rel="noopener">UCLA Anderson Review</a></li>
+                </ul>
+            </article>
+
+            <article class="paper">
+                <h3 class="paper-title">Fairness Behind the Veil: Eliciting Social Preferences from Large Language Models</h3>
+                <p class="paper-meta">with Muzhi Ma, Natalia Trigo, and Niuiu Zhang.</p>
+                <p class="paper-keywords"><strong>Keywords:</strong> Large language models, social preferences, fairness, veil of ignorance, experimental economics.</p>
+                <div class="paper-actions">
+                    <button class="paper-button" type="button" data-dialog-target="abstract-fairness">Abstract</button>
+                </div>
+                <ul class="research-notes">
+                    <li>Accepted to EC'25 Workshop on Information Economics x Large Language Models | July 2025, Stanford, CA</li>
+                </ul>
+            </article>
         </section>
         <!-- <a href="#top" class="top-link">[Top]</a> -->
 
+        <!-- <section id="talks">
+            <h2>Talks</h2>
+            <ul class="section-list">
+                <li>Online Research Seminar on Digital Businesses, Digital Business Institute at Questrom School of Business | June 15, 2026, Virtual</li>
+            </ul>
+            Add talk entries here.
+        </section>
+
+        <section id="teaching">
+            <h2>Teaching</h2>
+            <p class="section-note">Teaching experience will be added here.</p>
+            Add TA and teaching entries here.
+        </section>
+
+        <section id="service">
+            <h2>Service</h2>
+            <p class="section-note">Service, session chair, and reviewer work will be added here.</p>
+            Add service entries here.
+        </section> -->
+
         <!-- Outside of Academia Section -->
         <section id="outside-academia">
-            <h2>Outside  Academia</h2>
+            <h2>Outside Academia</h2>
             <p>
                 When I'm away from research, I enjoy spending my time on two long-standing interests: sports and music. On the sports side, I love surfing 🏄🏻, windsurfing, and playing tennis. Since moving to Los Angeles, I've also taken up golf.
             </p>
@@ -176,16 +787,16 @@
 
             Music is the other half of that equation. I've been playing the <em>Zheng</em> (筝) since 2005 and started learning the <em>Qin</em> (琴) in 2023 from Professor Li Chi. Along the way, I've had the opportunity to perform at venues such as Schoenberg Hall and the Chancellor's Residence at UCLA (a few recordings can be found here:
 
-                <a href="https://www.youtube.com/watch?v=--iB0Who1_k&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef" target="_blank">[1]</a>,
+                <a href="https://www.youtube.com/watch?v=--iB0Who1_k&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef" target="_blank" rel="noopener">[1]</a>,
 
-                <a href="https://www.youtube.com/watch?v=4wHhWGBiCbw&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef&index=10" target="_blank">[2]</a>, and
+                <a href="https://www.youtube.com/watch?v=4wHhWGBiCbw&list=PLK5AkSzLYHTZeKx8Y9csr8May-92ka5ef&index=10" target="_blank" rel="noopener">[2]</a>, and
 
-                <a href="https://www.youtube.com/watch?v=G3n3DxPPchw&list=PLK5AkSzLYHTZHTMRk4IwMEK_Xz6_kCnpT&index=11" target="_blank">[3]</a>).
+                <a href="https://www.youtube.com/watch?v=G3n3DxPPchw&list=PLK5AkSzLYHTZHTMRk4IwMEK_Xz6_kCnpT&index=11" target="_blank" rel="noopener">[3]</a>).
 
                 I believe music brings people together, just like sports. Hence, I have helped organize and produce the <em>Music of China</em> concert series for the
-                <a href="https://uclachinesemusic.com/home" target="_blank">UCLA Chinese Music Ensemble</a>,
+                <a href="https://uclachinesemusic.com/home" target="_blank" rel="noopener">UCLA Chinese Music Ensemble</a>,
                 including the
-                <a href="https://www.youtube.com/playlist?list=PLK5AkSzLYHTZHTMRk4IwMEK_Xz6_kCnpT" target="_blank">Fall 2024</a>
+                <a href="https://www.youtube.com/playlist?list=PLK5AkSzLYHTZHTMRk4IwMEK_Xz6_kCnpT" target="_blank" rel="noopener">Fall 2024</a>
                 and Spring 2026 concerts.
             </p>
 
@@ -193,9 +804,57 @@
         </section>
     </main>
 
+    <footer class="site-footer">
+        <p>&copy; 2026 by Alexandra</p>
+        <p>Last updated: June 16, 2026</p>
+    </footer>
+
+    <dialog class="abstract-dialog" id="abstract-surplus" aria-labelledby="abstract-surplus-title">
+        <div class="abstract-panel">
+            <button class="abstract-close" type="button" data-dialog-close aria-label="Close abstract">&times;</button>
+            <h3 id="abstract-surplus-title">Empirical Market Design in Surplus Food Marketplaces</h3>
+            <p>
+                Commercial food waste presents a major challenge to urban sustainability. In response, digital platforms have emerged that create new marketplaces for food retailers (e.g. bakeries) to sell surplus inventory at a discount. We consider how a key market design lever - the platform's pricing policy - influences seller entry and food waste diverted (i.e., aggregate sales volume) in a major surplus food marketplace. We estimate a structural model of a two-sided marketplace that captures both spatially differentiated consumer demand and sellers' market entry decisions, using hourly inventory data from 465 participating food retailers across four U.S. urban centers (Manhattan, Boston, San Francisco, and Seattle). Central to our methodology is a new estimation technique for sellers' entry costs grounded in discrete optimization, which dramatically speeds up estimation compared to standard nested fixed-point methods. We find significant heterogeneity across the four cities in consumers' travel costs and sensitivity to sellers' on-platform ratings. Counterfactual results show that seller participation is more price-elastic than consumer demand, implying that supply constraints primarily determine the volume of food waste diverted by the marketplace. Delegating price control to sellers invites excessive competition and induces exit, leading to a sharp contraction in equilibrium sales volume. Overall, our findings support platform control of prices in surplus food marketplaces - provided discounts are not too steep - and offer guidance to platform operators seeking to stimulate seller entry and curb food waste.
+            </p>
+        </div>
+    </dialog>
+
+    <dialog class="abstract-dialog" id="abstract-fairness" aria-labelledby="abstract-fairness-title">
+        <div class="abstract-panel">
+            <button class="abstract-close" type="button" data-dialog-close aria-label="Close abstract">&times;</button>
+            <h3 id="abstract-fairness-title">Fairness Behind the Veil: Eliciting Social Preferences from Large Language Models</h3>
+            <p>Abstract coming soon.</p>
+        </div>
+    </dialog>
 
     <script>
-        const pronunciationButtons = document.querySelectorAll(".pronunciation");
+        const abstractButtons = document.querySelectorAll("[data-dialog-target]");
+
+        abstractButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const dialog = document.getElementById(button.dataset.dialogTarget);
+
+                if (dialog && typeof dialog.showModal === "function") {
+                    dialog.showModal();
+                }
+            });
+        });
+
+        document.querySelectorAll(".abstract-dialog").forEach((dialog) => {
+            dialog.addEventListener("click", (event) => {
+                if (event.target === dialog) {
+                    dialog.close();
+                }
+            });
+        });
+
+        document.querySelectorAll("[data-dialog-close]").forEach((button) => {
+            button.addEventListener("click", () => {
+                button.closest("dialog").close();
+            });
+        });
+
+        const pronunciationButtons = document.querySelectorAll(".pronunciation, .name-audio");
         let currentAudio;
         let currentButton;
 

@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//alexandradong.com//Upcoming Talks//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20260712-msom-sig-day-surplus-food@alexandradong.com
+DTSTAMP:20260616T223337Z
+DTSTART;TZID=America/New_York:20260712T153000
+DTEND;TZID=America/New_York:20260712T170000
+SUMMARY:Empirical Market Design in Surplus Food Marketplaces
+LOCATION:Room Aldrich 208, Harvard Business School
+DESCRIPTION:INFORMS MSOM Conference (SIG Day)\nSustainable Operations SIG, Session SD - Food Waste\nSpeaker: Alexandra Yizhuo Dong
+END:VEVENT
+END:VCALENDAR

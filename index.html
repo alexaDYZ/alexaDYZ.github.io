@@ -69,7 +69,7 @@
     }
 
     main {
-        padding-bottom: 4rem;
+        padding-bottom: 0.75rem;
     }
 
     h1,
@@ -81,7 +81,7 @@
 
     h1 {
         margin: 0;
-        font-size: clamp(2.35rem, 5.8vw, 4.55rem);
+        font-size: clamp(2.35rem, 5.2vw, 4.15rem);
         line-height: 0.98;
     }
 
@@ -128,7 +128,7 @@
         column-gap: clamp(1.6rem, 4vw, 3.8rem);
         row-gap: 1.2rem;
         align-items: center;
-        padding: clamp(1.3rem, 3vw, 2.2rem);
+        padding: clamp(1.3rem, 3vw, 2.2rem) 0;
         border-block: 1px solid rgba(29, 111, 104, 0.14);
     }
 
@@ -212,7 +212,7 @@
         position: relative;
         grid-column: 2;
         grid-row: 1 / span 2;
-        justify-self: end;
+        justify-self: center;
         width: min(100%, 340px);
         border-radius: 8px;
     }
@@ -260,19 +260,28 @@
     }
 
     section {
-        padding: clamp(2.2rem, 5vw, 3.4rem) 0;
+        padding: clamp(1.55rem, 3.5vw, 2.4rem) 0;
         border-top: 1px solid var(--rule);
     }
 
     #about {
         border-top: 0;
-        padding-top: clamp(2rem, 4vw, 3rem);
+        padding-top: clamp(1.2rem, 2.8vw, 2rem);
     }
 
+    #outside-academia {
+        padding-bottom: clamp(1.1rem, 2.4vw, 1.7rem);
+    }
+
+    section > h2,
     section > p,
     section > ol,
     section > ul {
         max-width: 760px;
+    }
+
+    #about strong {
+        color: var(--accent-dark);
     }
 
     ol {
@@ -367,6 +376,116 @@
         margin-top: 0.35rem;
         padding-left: 1.1rem;
         color: #333631;
+    }
+
+    .structured-list {
+        display: grid;
+        gap: 0.55rem;
+        max-width: 860px;
+        margin-top: 0.65rem;
+    }
+
+    .talk-item,
+    .experience-item {
+        display: grid;
+        gap: 0.08rem 1rem;
+        padding: 0.18rem 0;
+    }
+
+    .structured-list > :first-child {
+        padding-top: 0;
+    }
+
+    .talk-item {
+        grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1fr);
+        align-items: baseline;
+    }
+
+    .experience-item {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .entry-date,
+    .entry-label {
+        display: block;
+        margin: 0;
+        color: var(--accent-dark);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 750;
+        letter-spacing: 0.04em;
+        line-height: 1.35;
+        text-transform: uppercase;
+    }
+
+    .entry-title {
+        margin: 0;
+        color: var(--ink);
+        font-weight: 700;
+        line-height: 1.35;
+    }
+
+    .entry-title-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        align-items: center;
+    }
+
+    .calendar-link {
+        display: inline-grid;
+        flex: 0 0 auto;
+        place-items: center;
+        width: 1.65rem;
+        height: 1.65rem;
+        border: 1px solid rgba(29, 111, 104, 0.26);
+        border-radius: 50%;
+        background: rgba(229, 240, 236, 0.7);
+        color: var(--accent-dark);
+        text-decoration: none;
+        transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .calendar-link:hover,
+    .calendar-link:focus-visible {
+        border-color: var(--accent-dark);
+        background: var(--accent-dark);
+        color: #fff;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+
+    .calendar-link svg {
+        width: 0.95rem;
+        height: 0.95rem;
+        stroke: currentColor;
+        stroke-width: 2;
+    }
+
+    .entry-meta {
+        margin: 0.06rem 0 0;
+        color: var(--muted);
+        line-height: 1.45;
+    }
+
+    .talk-details {
+        display: grid;
+        gap: 0.12rem;
+        margin: 0.35rem 0 0;
+        padding: 0;
+        color: #333631;
+        list-style: none;
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+
+    .talk-details li {
+        padding-left: 0;
+    }
+
+    .section-context {
+        margin-bottom: 0;
+        color: var(--muted);
     }
 
     .section-note {
@@ -618,7 +737,7 @@
         }
 
         section {
-            padding: 2rem 0;
+            padding: 1.6rem 0;
         }
 
         ol {
@@ -635,6 +754,20 @@
 
         .paper-actions {
             gap: 0.45rem;
+        }
+
+        .structured-list {
+            gap: 0.55rem;
+        }
+
+        .talk-item {
+            grid-template-columns: 1fr;
+            gap: 0.18rem;
+        }
+
+        .talk-item,
+        .experience-item {
+            padding: 0.22rem 0;
         }
     }
 
@@ -674,7 +807,7 @@
                         </svg>
                     </button>
                 </h1>
-                <p class="tagline">Researching sustainable operations and innovative marketplaces.</p>
+                <!-- <p class="tagline">Researching sustainable operations and innovative marketplaces.</p> -->
                 <div class="contact-row" aria-label="Contact links">
                     <span class="contact-pill">yizhuo.dong.phd@anderson.ucla.edu</span>
                 </div>
@@ -686,18 +819,17 @@
         </div>
     </header>
     
-    
     <main>
 
         <!-- About Section -->
         <section id="about">
-            <h2>About Me</h2>
+            <!-- <h2>About Me</h2> -->
             <p>
                 Hi! I am a third-year PhD student in the Decisions, Operations and Technology Management (<a href="https://www.anderson.ucla.edu/faculty-and-research/decisions-operations-and-technology-management">DOTM</a>) Area at UCLA Anderson School of Management, where I am very fortunate to be advised by Professor <a href="https://www.auyonsiddiq.com/">Auyon Siddiq</a>.
             </p>
 
             <p>
-                I am passionate about studying innovative marketplaces and sustainable operations. My research integrates empirical analysis with analytical tools from optimization, game theory, and machine learning to study how market design influences operational decisions and outcomes. Recently, I have been working on a project that applies structural estimation and market design to reduce food waste.
+                I am passionate about studying <strong>innovative marketplaces and sustainable operations</strong>. My research integrates empirical analysis with analytical tools from optimization, game theory, and machine learning to study how market design influences operational decisions and outcomes. Recently, I have been working on a project that applies structural estimation and market design to reduce food waste.
             </p>
 
             <p>
@@ -757,24 +889,69 @@
         </section>
         <!-- <a href="#top" class="top-link">[Top]</a> -->
 
-        <!-- <section id="talks">
-            <h2>Talks</h2>
-            <ul class="section-list">
-                <li>Online Research Seminar on Digital Businesses, Digital Business Institute at Questrom School of Business | June 15, 2026, Virtual</li>
-            </ul>
-            Add talk entries here.
+        <section id="talks">
+            <h2>Upcoming Talks</h2>
+            <div class="structured-list">
+                <article class="talk-item">
+                    <time class="entry-date" datetime="2026-07-12">Jul 12, 2026</time>
+                    <div>
+                        <div class="entry-title-row">
+                            <p class="entry-title">INFORMS MSOM Conference (SIG Day)</p>
+                            <a class="calendar-link" href="assets/msom-sig-day-2026.ics" download aria-label="Add INFORMS MSOM Conference SIG Day talk to calendar" title="Add to calendar">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <rect x="3" y="4" width="18" height="17" rx="2" ry="2" fill="none"/>
+                                    <path d="M16 2v4M8 2v4M3 10h18" fill="none" stroke-linecap="round"/>
+                                    <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" fill="none" stroke-linecap="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <p class="entry-meta">Harvard Business School</p>
+                        <ul class="talk-details">
+                            <li><strong>Title:</strong> Empirical Market Design in Surplus Food Marketplaces</li>
+                            <li>Sustainable Operations SIG, Session SD - Food Waste</li>
+                            <li>3:30-5:00 PM | Room Aldrich 208</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
         </section>
 
         <section id="teaching">
-            <h2>Teaching</h2>
-            <p class="section-note">Teaching experience will be added here.</p>
-            Add TA and teaching entries here.
+            <h2>Teaching Assistant</h2>
+            <p class="section-context">Anderson School of Management, UCLA</p>
+            <!-- <p class="section-note">Teaching experience will be added here.</p> -->
+            <div class="structured-list">
+                <article class="experience-item">
+                    <p class="entry-label">MGMTFT420</p>
+                    <p class="entry-title">Data and Decisions</p>
+                    <p class="entry-meta">MBA core statistics with Auyon Siddiq | Fall 2024 and Fall 2025, Full-time MBA</p>
+                </article>
+                <article class="experience-item">
+                    <p class="entry-label">MGMTFT298D</p>
+                    <p class="entry-title">The Science and Strategy of Artificial Intelligence</p>
+                    <p class="entry-meta">MBA elective with Auyon Siddiq | Spring 2026, Full-time MBA and Executive MBA</p>
+                </article>
+                <!-- <article class="experience-item">
+                    <p class="entry-label">GEMBA410</p>
+                    <p class="entry-title">Operations &amp; Technology Management</p>
+                    <p class="entry-meta">Global Executive MBA (NUS-UCLA) core with Kumar Rajaram | Summer 2026 and Winter 2027</p>
+                </article> -->
+            </div>
         </section>
-
+<!-- 
         <section id="service">
-            <h2>Service</h2>
-            <p class="section-note">Service, session chair, and reviewer work will be added here.</p>
-            Add service entries here.
+            <h2>Professional Service</h2>
+            <div class="structured-list">
+                <article class="experience-item">
+                    <p class="entry-label">Session Co-chair</p>
+                    <p class="entry-title">Sustainability and Innovative Marketplaces, Revenue Management Track</p>
+                    <p class="entry-meta">INFORMS Annual Meeting 2025</p>
+                </article>
+                <article class="experience-item">
+                    <p class="entry-label">Ad-hoc Reviewer</p>
+                    <p class="entry-title">Decision Sciences</p>
+                </article>
+            </div>
         </section> -->
 
         <!-- Outside of Academia Section -->
@@ -806,7 +983,7 @@
 
     <footer class="site-footer">
         <p>&copy; 2026 by Alexandra</p>
-        <p>Last updated: June 16, 2026</p>
+        <p>Last updated: June, 2026</p>
     </footer>
 
     <dialog class="abstract-dialog" id="abstract-surplus" aria-labelledby="abstract-surplus-title">
